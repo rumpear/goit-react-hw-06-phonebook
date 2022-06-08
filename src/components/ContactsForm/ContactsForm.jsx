@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
 import 'react-phone-input-2/lib/style.css';
 
 import {
@@ -13,6 +13,8 @@ import {
   Error,
   PhoneField,
 } from './ContactsForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { createContact } from '../../redux/contactsSlice';
 
 const schema = yup.object().shape({
   name: yup
@@ -22,19 +24,22 @@ const schema = yup.object().shape({
     .required('Please enter the name of your contact'),
 });
 
-export const ContactsForm = ({ contacts, onAddContact }) => {
+export const ContactsForm = () => {
   const [phone, setPhone] = useState('');
 
+  const { items } = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+
   const checkDuplicateName = nameToAdd => {
-    return contacts.find(
-      ({ name }) => name.toLowerCase() === nameToAdd.toLowerCase(),
+    return items.find(
+      ({ name }) => name.toLowerCase() === nameToAdd.toLowerCase()
     );
   };
 
   const handleSubmit = ({ name }, { resetForm }) => {
     if (checkDuplicateName(name)) {
       toast.warn(
-        'You are trying to enter a name that is already on the phonebook',
+        'You are trying to enter a name that is already on the phonebook'
       );
       resetForm();
       setPhone('');
@@ -46,9 +51,19 @@ export const ContactsForm = ({ contacts, onAddContact }) => {
       return;
     }
 
-    onAddContact(name, phone);
+    addContact(name, phone);
     resetForm();
     setPhone('');
+  };
+
+  const addContact = (name, number) => {
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    dispatch(createContact(contact));
   };
 
   return (
@@ -82,15 +97,4 @@ export const ContactsForm = ({ contacts, onAddContact }) => {
       </Formik>
     </>
   );
-};
-
-ContactsForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }),
-  ),
-  onAddContact: PropTypes.func.isRequired,
 };

@@ -1,9 +1,5 @@
-import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-// import { useState } from 'react';
-// import { useLocalStorage } from '../hooks/';
 
 import { Section } from './Section';
 import { ContactsFilter } from './ContactsFilter';
@@ -11,17 +7,16 @@ import { ContactsForm } from './ContactsForm';
 import { ContactsList } from './ContactsList';
 
 import { Wrapper, TitlePhonebook, TitleContacts } from './App.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact, removeContact } from '../redux/contactsSlice';
+// import { useDispatch, useSelector } from 'react-redux';
 
 export const App = () => {
   // const value = useSelector(state => state.contacts);
-  const { items, filter } = useSelector(state => state.contacts);
+  // const { items, filter } = useSelector(state => state.contacts);
 
   // console.log(items);
   // console.log(filter);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const [contacts, setContacts] = useLocalStorage('contacts', [
   //   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -31,17 +26,16 @@ export const App = () => {
   // ]);
   // const [filter, setFilter] = useState('');
 
-  const handleAddContact = (name, number) => {
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
+  // const handleAddContact = (name, number) => {
+  //   const contact = {
+  //     id: nanoid(),
+  //     name,
+  //     number,
+  //   };
 
-    // setContacts(s => [...s, contact]);
-    dispatch(addContact(contact));
-    console.log(items, 'dispatch');
-  };
+  //   dispatch(addContact(contact));
+  //   console.log(items, 'dispatch');
+  // };
 
   // const handleSearchContact = e => {
   //   // setFilter(e.currentTarget.value);
@@ -56,7 +50,8 @@ export const App = () => {
     <Section>
       <Wrapper>
         <TitlePhonebook>Phonebook</TitlePhonebook>
-        <ContactsForm onAddContact={handleAddContact} contacts={items} />
+        {/* <ContactsForm onAddContact={handleAddContact} contacts={items} /> */}
+        <ContactsForm />
         <ContactsFilter />
         {/* <ContactsFilter value={filter} onSearchContact={handleSearchContact} /> */}
         <TitleContacts>Contacts</TitleContacts>
