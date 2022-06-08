@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateFilter } from '../../redux/contactsSlice';
+import { getFilterValue, updateFilter } from '../../redux/contactsSlice';
 import { Title, Input } from './ContactsFilter.styled';
 
 export const ContactsFilter = () => {
-  const { filter } = useSelector(state => state.contacts);
+  const filterValue = useSelector(getFilterValue);
   const dispatch = useDispatch();
 
   const handleSearchContact = e => {
@@ -17,7 +17,7 @@ export const ContactsFilter = () => {
         type="text"
         name="filter"
         required
-        value={filter}
+        value={filterValue}
         onChange={handleSearchContact}
       />
     </div>

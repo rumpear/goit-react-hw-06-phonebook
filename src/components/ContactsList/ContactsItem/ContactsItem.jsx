@@ -14,12 +14,7 @@ export const ContactsItem = ({ id, name, number }) => {
     <Item>
       <Text>{name}</Text>
       <Text>{number}</Text>
-      <Button
-        type="button"
-        onClick={() => {
-          handleDeleteContact(id);
-        }}
-      >
+      <Button type="button" onClick={() => handleDeleteContact(id)}>
         <VscClose size={20} />
       </Button>
     </Item>

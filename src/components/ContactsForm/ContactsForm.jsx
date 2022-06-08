@@ -14,7 +14,7 @@ import {
   PhoneField,
 } from './ContactsForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { createContact } from '../../redux/contactsSlice';
+import { createContact, getContactsValue } from '../../redux/contactsSlice';
 
 const schema = yup.object().shape({
   name: yup
@@ -27,11 +27,11 @@ const schema = yup.object().shape({
 export const ContactsForm = () => {
   const [phone, setPhone] = useState('');
 
-  const { items } = useSelector(state => state.contacts);
+  const contacts = useSelector(getContactsValue);
   const dispatch = useDispatch();
 
   const checkDuplicateName = nameToAdd => {
-    return items.find(
+    return contacts.find(
       ({ name }) => name.toLowerCase() === nameToAdd.toLowerCase()
     );
   };
@@ -78,12 +78,13 @@ export const ContactsForm = () => {
         <FormBody>
           <Title>Name</Title>
           <Input
-            autoFocus={true}
+            // autoFocus={true}
             type="text"
             name="name"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           />
           <ErrorMessage name="name" component={Error} />
+          <Title>Phone</Title>
           <PhoneField
             country={'ua'}
             placeholder={'+380 (63) 000 00 00'}

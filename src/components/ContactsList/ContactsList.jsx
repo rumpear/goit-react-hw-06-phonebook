@@ -1,30 +1,16 @@
 import { List, Text } from './ContactsList.styled';
 import { useSelector } from 'react-redux';
 import { ContactsItem } from './ContactsItem';
+import { getContactsValue, getFilterValue } from '../../redux/contactsSlice';
 
 export const ContactsList = () => {
-  const { items, filter } = useSelector(state => state.contacts);
-  // const dispatch = useDispatch();
+  const contacts = useSelector(getContactsValue);
+  const filterValue = useSelector(getFilterValue);
 
-  const filteredContacts = items.filter(({ name }) => {
-    console.log(name.toLowerCase().includes(filter.toLowerCase()));
-    console.log(name, 'name');
-    console.log('filter', filter);
-    return name.toLowerCase().includes(filter.toLowerCase());
+  const filteredContacts = contacts.filter(({ name }) => {
+    return name.toLowerCase().includes(filterValue.toLowerCase());
   });
 
-  // const handleDeleteContact = currentId => {
-  //   dispatch(removeContact(currentId));
-  // };
-
-  const filterContact = () => {
-    const normalizeFilterValue = filter.toLowerCase();
-    return items.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilterValue)
-    );
-  };
-
-  // console.log(filterContact(), 'filterContact()');
   return (
     <div>
       {filteredContacts.length ? (
