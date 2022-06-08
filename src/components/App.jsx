@@ -12,14 +12,14 @@ import { ContactsList } from './ContactsList';
 
 import { Wrapper, TitlePhonebook, TitleContacts } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, removeContact, setFilter } from '../redux/contactsSlice';
+import { addContact, removeContact } from '../redux/contactsSlice';
 
 export const App = () => {
   // const value = useSelector(state => state.contacts);
   const { items, filter } = useSelector(state => state.contacts);
 
-  console.log(items);
-  console.log(filter);
+  // console.log(items);
+  // console.log(filter);
 
   const dispatch = useDispatch();
 
@@ -43,42 +43,32 @@ export const App = () => {
     console.log(items, 'dispatch');
   };
 
-  const handleSearchContact = e => {
-    // setFilter(e.currentTarget.value);
-    // console.log(e.currentTarget.value);
-    dispatch(setFilter(e.currentTarget.value));
-  };
+  // const handleSearchContact = e => {
+  //   // setFilter(e.currentTarget.value);
+  //   // console.log(e.currentTarget.value);
+  //   dispatch(setFilter(e.currentTarget.value));
+  // };
 
-  const filterContact = () => {
-    const normalizeFilterValue = filter.toLowerCase();
-    return items.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilterValue)
-    );
-  };
-
-  const handleDeleteContact = currentId => {
-    // setContacts(s => s.filter(contact => contact.id !== currentId));
-
-    dispatch(removeContact(currentId));
-  };
-
+  // const cont = filterContact();
+  // console.log(cont, 'cont');
+  // console.log(filterContact().length, 'filterContact');
   return (
     <Section>
       <Wrapper>
         <TitlePhonebook>Phonebook</TitlePhonebook>
         <ContactsForm onAddContact={handleAddContact} contacts={items} />
-        {/* <ContactsFilter /> */}
-        <ContactsFilter value={filter} onSearchContact={handleSearchContact} />
+        <ContactsFilter />
+        {/* <ContactsFilter value={filter} onSearchContact={handleSearchContact} /> */}
         <TitleContacts>Contacts</TitleContacts>
-        {items ? (
+        <ContactsList />
+        {/* {items.length && cont.length ? (
           <ContactsList
             contacts={filterContact()}
-            // contacts={items}
             onDeleteContact={handleDeleteContact}
           />
         ) : (
           <p>Nothing to show</p>
-        )}
+        )} */}
       </Wrapper>
       <ToastContainer
         position="top-center"
