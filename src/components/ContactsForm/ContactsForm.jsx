@@ -41,8 +41,6 @@ export const ContactsForm = () => {
       toast.warn(
         'You are trying to enter a name that is already on the phonebook'
       );
-      resetForm();
-      setPhone('');
       return;
     }
 
@@ -78,7 +76,8 @@ export const ContactsForm = () => {
         <FormBody>
           <Title>Name</Title>
           <Input
-            // autoFocus={true}
+            autoFocus={false}
+            placeholder={'Enter the name of your contact'}
             type="text"
             name="name"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
